@@ -34,4 +34,6 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLevel;
 
+    private String category;
+
 }

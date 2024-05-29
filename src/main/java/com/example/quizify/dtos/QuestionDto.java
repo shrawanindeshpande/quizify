@@ -27,4 +27,6 @@ public class QuestionDto {
     private String answer;
 
     private DifficultyLevel difficultyLevel;
+
+    private String category;
 }

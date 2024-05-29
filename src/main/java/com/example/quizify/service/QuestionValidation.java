@@ -36,4 +36,13 @@ public class QuestionValidation {
         }
 
     }
+
+    public void updateRequestValidation(QuestionDto questionDto){
+        if(ObjectUtils.isEmpty(questionDto)){
+            throw new InputMismatchException("Please provide data to update question.");
+        }
+        if(questionDto.getId()<0){
+            throw new InputMismatchException("Please provide question id");
+        }
+    }
 }

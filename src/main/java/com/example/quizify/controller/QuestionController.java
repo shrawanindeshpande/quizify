@@ -27,4 +27,22 @@ public class QuestionController {
     public ResponseEntity getAllQuestions(){
         return new ResponseEntity<>(questionService.getAllQuestion(),HttpStatus.OK);
     }
+
+    @GetMapping("getByCategory")
+    public ResponseEntity getByCategory(@RequestParam String category){
+        try {
+            return new ResponseEntity<>(questionService.getByCategory(category),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("update")
+    public ResponseEntity update(@RequestBody QuestionDto questionDto){
+        try {
+            return new ResponseEntity<>(questionService.update(questionDto),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }
