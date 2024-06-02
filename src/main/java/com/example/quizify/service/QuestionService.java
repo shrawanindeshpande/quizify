@@ -116,5 +116,9 @@ public class QuestionService {
         return questionDto;
     }
 
+    public List<Question> getRandomQuestionByCategory(String category,int numberOfQuestions){
+        return questionRepository.findRandomByCategory(category,numberOfQuestions);
+    }
+
 
 }
