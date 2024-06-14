@@ -1,7 +1,6 @@
 package com.example.quizify.controller;
 
-import com.example.quizify.dtos.GetQuizQuestionDto;
-import com.example.quizify.dtos.QuizDto;
+import com.example.quizify.dtos.*;
 import com.example.quizify.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,9 +32,9 @@ public class QuizController {
     }
 
 
-//    @GetMapping("/solveQuiz")
-//    public ResponseEntity<String>  solveQuiz(@RequestBody SolvedQuizDto solvedQuizDto){
-//        return new ResponseEntity<>(quizService.solveQuiz)
-//    }
+    @PostMapping("/submit/{id}")
+    public ResponseEntity<Integer>  submitQuiz(@PathVariable int id,@RequestBody List<QuestionAnswerDto> questionAnswerDtos){
+        return new ResponseEntity<>(quizService.calculateResult(id,questionAnswerDtos),HttpStatus.OK);
+    }
 
 }

@@ -1,6 +1,8 @@
 package com.example.quizify.service;
 
+import com.example.quizify.Enum.DifficultyLevel;
 import com.example.quizify.dtos.GetQuizQuestionDto;
+import com.example.quizify.dtos.QuestionAnswerDto;
 import com.example.quizify.dtos.QuizDto;
 import com.example.quizify.entity.Question;
 import com.example.quizify.entity.Quiz;
@@ -15,6 +17,10 @@ import java.util.Optional;
 
 @Service
 public class QuizService {
+    private static final int EASY_SCORE=1;
+    private static final int MEDIUM_SCORE=3;
+    private static final int HARD_SCORE=5;
+
     @Autowired
     private QuizRepository quizRepository;
 
@@ -52,4 +58,31 @@ public class QuizService {
         }
         return quizQuestions;
     }
+
+    public int calculateResult(int id, List<QuestionAnswerDto> questionAnswerDtos) {
+        Quiz quiz= quizRepository.findById(id).get();
+        List<Question> questions=quiz.getQuestionList();
+        int idx=0;
+        int score=0;
+        for(QuestionAnswerDto questionAnswerDto:questionAnswerDtos){
+            if(questionAnswerDto.getAnswer().equals(questions.get(idx).getAnswer())){
+                score+=getScore(questions.get(idx));
+            }
+            idx++;
+        }
+        return score;
+    }
+    private int getScore(Question question){
+        if(question.getDifficultyLevel().compareTo(DifficultyLevel.EASY)==0){
+            return EASY_SCORE;
+        }
+        else if (question.getDifficultyLevel().compareTo(DifficultyLevel.MEDIUM)==0) {
+            return MEDIUM_SCORE;
+        }
+        else {
+            return HARD_SCORE;
+        }
+
+    }
+
 }
